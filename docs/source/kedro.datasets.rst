@@ -39,6 +39,7 @@ kedro.datasets
    kedro.datasets.plotly.JSONDataSet
    kedro.datasets.plotly.PlotlyDataSet
    kedro.datasets.redis.PickleDataSet
+   kedro.datasets.snowflake.SnowparkTableDataSet
    kedro.datasets.spark.DeltaTableDataSet
    kedro.datasets.spark.SparkDataSet
    kedro.datasets.spark.SparkHiveDataSet
