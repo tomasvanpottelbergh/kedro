@@ -275,7 +275,12 @@ class OmegaConfigLoader(AbstractConfigLoader):
             return {}
         if len(aggregate_config) == 1:
             return list(aggregate_config)[0]
-        return dict(OmegaConf.merge(*aggregate_config))
+        # return dict(OmegaConf.merge(*aggregate_config))
+        return {
+            k: v
+            for k, v in dict(OmegaConf.merge(*aggregate_config)).items()
+            if not k.startswith("_")
+        }
 
     def _is_valid_config_path(self, path):
         """Check if given path is a file path and file type is yaml or json."""
