@@ -104,6 +104,7 @@ class OmegaConfigLoader(AbstractConfigLoader):
             "parameters": ["parameters*", "parameters*/**", "**/parameters*"],
             "credentials": ["credentials*", "credentials*/**", "**/credentials*"],
             "logging": ["logging*", "logging*/**", "**/logging*"],
+            "globals": ["globals*", "globals*/**", "**/globals*"],
         }
         self.config_patterns.update(config_patterns or {})
 
@@ -156,6 +157,8 @@ class OmegaConfigLoader(AbstractConfigLoader):
             raise KeyError(
                 f"No config patterns were found for '{key}' in your config loader"
             )
+        globals_patterns = [*self.config_patterns["globals"]] if "globals" in self.config_patterns else None
+
         patterns = [*self.config_patterns[key]]
 
         read_environment_variables = key == "credentials"
@@ -166,7 +169,7 @@ class OmegaConfigLoader(AbstractConfigLoader):
         else:
             base_path = str(Path(self._fs.ls("", detail=False)[-1]) / self.base_env)
         base_config = self.load_and_merge_dir_config(
-            base_path, patterns, read_environment_variables
+            base_path, patterns, globals_patterns, read_environment_variables
         )
         config = base_config
 
@@ -177,7 +180,7 @@ class OmegaConfigLoader(AbstractConfigLoader):
         else:
             env_path = str(Path(self._fs.ls("", detail=False)[-1]) / run_env)
         env_config = self.load_and_merge_dir_config(
-            env_path, patterns, read_environment_variables
+            env_path, patterns, globals_patterns, read_environment_variables
         )
 
         # Destructively merge the two env dirs. The chosen env will override base.
@@ -209,6 +212,7 @@ class OmegaConfigLoader(AbstractConfigLoader):
         self,
         conf_path: str,
         patterns: Iterable[str],
+        globals_patterns: Optional[Iterable[str]],
         read_environment_variables: Optional[bool] = False,
     ) -> Dict[str, Any]:
         """Recursively load and merge all configuration files in a directory using OmegaConf,
@@ -217,6 +221,7 @@ class OmegaConfigLoader(AbstractConfigLoader):
         Args:
             conf_path: Path to configuration directory.
             patterns: List of glob patterns to match the filenames against.
+            globals_patterns: ...
             read_environment_variables: Whether to resolve environment variables.
 
         Raises:
@@ -241,10 +246,13 @@ class OmegaConfigLoader(AbstractConfigLoader):
             for pattern in patterns
             for each in self._fs.glob(Path(f"{str(conf_path)}/{pattern}").as_posix())
         ]
+
+
         deduplicated_paths = set(paths)
         config_files_filtered = [
             path for path in deduplicated_paths if self._is_valid_config_path(path)
         ]
+
 
         config_per_file = {}
         for config_filepath in config_files_filtered:
@@ -268,19 +276,36 @@ class OmegaConfigLoader(AbstractConfigLoader):
         seen_file_to_keys = {
             file: set(config.keys()) for file, config in config_per_file.items()
         }
-        aggregate_config = config_per_file.values()
+
+        if not config_per_file:
+            return {}
+
+        if globals_patterns:
+            globals_per_file = self.load_globals_data(globals_patterns, read_environment_variables, conf_path)
+        else:
+            globals_per_file = {}
+
+        aggregate_config = config_per_file
+        if globals_per_file:
+            aggregate_config.update(globals_per_file)
+        agg_globals = globals_per_file.values()
+        all_configs = aggregate_config.values()
+
         self._check_duplicates(seen_file_to_keys)
 
-        if not aggregate_config:
+        if not all_configs:
             return {}
-        if len(aggregate_config) == 1:
-            return list(aggregate_config)[0]
-        # return dict(OmegaConf.merge(*aggregate_config))
-        return {
-            k: v
-            for k, v in dict(OmegaConf.merge(*aggregate_config)).items()
-            if not k.startswith("_")
-        }
+        if len(all_configs) == 1:
+            return list(all_configs)[0]
+        merged_result = OmegaConf.merge(*all_configs)
+        logging.warning(f"Merged res: {merged_result}")
+        my_conf = OmegaConf.to_container(merged_result, resolve=True)
+        logging.warning(f"To container result: {my_conf}")
+        for item in agg_globals:
+            for key, value in item.items():
+                my_conf.pop(key)
+        logging.warning(f"Final result: {my_conf}")
+        return my_conf
 
     def _is_valid_config_path(self, path):
         """Check if given path is a file path and file type is yaml or json."""
@@ -290,6 +315,36 @@ class OmegaConfigLoader(AbstractConfigLoader):
             ".yaml",
             ".json",
         ]
+
+    def load_globals_data(self, globals_patterns, read_environment_variables, conf_path):
+        global_paths = [
+            Path(each)
+            for pattern in globals_patterns
+            for each in self._fs.glob(Path(f"{self.conf_source}/{pattern}").as_posix())
+        ]
+        dedup_globals = set(global_paths)
+        globals_files_filtered = [
+            path for path in dedup_globals if self._is_valid_config_path(path)
+        ]
+        globals_per_file = {}
+        for config_filepath in globals_files_filtered:
+            try:
+                with self._fs.open(str(config_filepath.as_posix())) as open_config:
+                    # As fsspec doesn't allow the file to be read as StringIO,
+                    # this is a workaround to read it as a binary file and decode it back to utf8.
+                    tmp_fo = io.StringIO(open_config.read().decode("utf8"))
+                    config = OmegaConf.load(tmp_fo)
+                if read_environment_variables:
+                    self._resolve_environment_variables(config)
+                globals_per_file[config_filepath] = config
+            except (ParserError, ScannerError) as exc:
+                line = exc.problem_mark.line  # type: ignore
+                cursor = exc.problem_mark.column  # type: ignore
+                raise ParserError(
+                    f"Invalid YAML or JSON file {Path(conf_path, config_filepath.name).as_posix()},"
+                    f" unable to read line {line}, position {cursor}."
+                ) from exc
+        return globals_per_file
 
     @staticmethod
     def _check_duplicates(seen_files_to_keys: Dict[Path, Set[Any]]):
