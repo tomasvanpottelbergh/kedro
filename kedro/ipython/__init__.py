@@ -149,7 +149,7 @@ def _resolve_project_path(
     return project_path
 
 
-def _remove_cached_modules(package_name):  # pragma: no cover
+def _remove_cached_modules(package_name: str) -> None:  # pragma: no cover
     to_remove = [mod for mod in sys.modules if mod.startswith(package_name)]
     # `del` is used instead of `reload()` because: If the new version of a module does not
     # define a name that was defined by the old version, the old definition remains.

@@ -70,7 +70,7 @@ CONF_SOURCE_HELP = """Path of a directory where project configuration is stored.
 
 # pylint: disable=missing-function-docstring
 @click.group(name="Kedro")
-def project_group():  # pragma: no cover
+def project_group() -> None:  # pragma: no cover
     pass
 
 

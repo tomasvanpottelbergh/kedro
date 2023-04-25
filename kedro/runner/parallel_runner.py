@@ -8,7 +8,7 @@ import sys
 from collections import Counter
 from concurrent.futures import FIRST_COMPLETED, ProcessPoolExecutor, wait
 from itertools import chain
-from multiprocessing.managers import BaseProxy, SyncManager  # type: ignore
+from multiprocessing.managers import BaseProxy, SyncManager
 from multiprocessing.reduction import ForkingPickler
 from pickle import PicklingError
 from typing import Any, Dict, Iterable, Optional, Set

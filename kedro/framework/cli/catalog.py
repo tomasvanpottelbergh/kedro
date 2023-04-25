@@ -23,12 +23,12 @@ def _create_session(package_name: str, **kwargs):
 
 # pylint: disable=missing-function-docstring
 @click.group(name="Kedro")
-def catalog_cli():  # pragma: no cover
+def catalog_cli() -> None:  # pragma: no cover
     pass
 
 
 @catalog_cli.group()
-def catalog():
+def catalog() -> None:
     """Commands for working with catalog."""
 
 
