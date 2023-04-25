@@ -174,8 +174,8 @@ class KedroContext:
         project_path: Union[Path, str],
         config_loader: ConfigLoader,
         hook_manager: PluginManager,
-        env: str = None,
-        extra_params: Dict[str, Any] = None,
+        env: Optional[str] = None,
+        extra_params: Optional[Dict[str, Any]] = None,
     ):  # pylint: disable=too-many-arguments
         """Create a context object by providing the root of a Kedro project and
         the environment configuration subfolders
@@ -264,8 +264,8 @@ class KedroContext:
 
     def _get_catalog(
         self,
-        save_version: str = None,
-        load_versions: Dict[str, str] = None,
+        save_version: Optional[str] = None,
+        load_versions: Optional[Dict[str, str]] = None,
     ) -> DataCatalog:
         """A hook for changing the creation of a DataCatalog instance.
 

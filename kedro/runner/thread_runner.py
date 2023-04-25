@@ -6,7 +6,7 @@ import warnings
 from collections import Counter
 from concurrent.futures import FIRST_COMPLETED, ThreadPoolExecutor, wait
 from itertools import chain
-from typing import Set
+from typing import Optional, Set
 
 from pluggy import PluginManager
 
@@ -22,7 +22,7 @@ class ThreadRunner(AbstractRunner):
     using threads.
     """
 
-    def __init__(self, max_workers: int = None, is_async: bool = False):
+    def __init__(self, max_workers: Optional[int] = None, is_async: bool = False):
         """
         Instantiates the runner.
 
@@ -85,7 +85,7 @@ class ThreadRunner(AbstractRunner):
         pipeline: Pipeline,
         catalog: DataCatalog,
         hook_manager: PluginManager,
-        session_id: str = None,
+        session_id: Optional[str] = None,
     ) -> None:
         """The abstract interface for running pipelines.
 

@@ -118,8 +118,8 @@ class AbstractDataSet(abc.ABC, Generic[_DI, _DO]):
         cls: Type,
         name: str,
         config: Dict[str, Any],
-        load_version: str = None,
-        save_version: str = None,
+        load_version: Optional[str] = None,
+        save_version: Optional[str] = None,
     ) -> "AbstractDataSet":
         """Create a data set instance using the configuration provided.
 
@@ -351,7 +351,9 @@ _DEFAULT_PACKAGES = ["kedro.io.", "kedro_datasets.", "kedro.extras.datasets.", "
 
 
 def parse_dataset_definition(
-    config: Dict[str, Any], load_version: str = None, save_version: str = None
+    config: Dict[str, Any],
+    load_version: Optional[str] = None,
+    save_version: Optional[str] = None,
 ) -> Tuple[Type[AbstractDataSet], Dict[str, Any]]:
     """Parse and instantiate a dataset class using the configuration provided.
 
@@ -504,8 +506,8 @@ class AbstractVersionedDataSet(AbstractDataSet[_DI, _DO], abc.ABC):
         self,
         filepath: PurePosixPath,
         version: Optional[Version],
-        exists_function: Callable[[str], bool] = None,
-        glob_function: Callable[[str], List[str]] = None,
+        exists_function: Optional[Callable[[str], bool]] = None,
+        glob_function: Optional[Callable[[str], List[str]]] = None,
     ):
         """Creates a new instance of ``AbstractVersionedDataSet``.
 
@@ -697,7 +699,9 @@ def _parse_filepath(filepath: str) -> Dict[str, str]:
     return options
 
 
-def get_protocol_and_path(filepath: str, version: Version = None) -> Tuple[str, str]:
+def get_protocol_and_path(
+    filepath: str, version: Optional[Version] = None
+) -> Tuple[str, str]:
     """Parses filepath on protocol and path.
 
     Args:

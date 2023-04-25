@@ -1,7 +1,7 @@
 """``APIDataSet`` loads the data from HTTP(S) APIs.
 It uses the python requests library: https://requests.readthedocs.io/en/latest/
 """
-from typing import Any, Dict, Iterable, List, NoReturn, Union
+from typing import Any, Dict, Iterable, List, NoReturn, Optional, Union
 
 import requests
 from requests.auth import AuthBase
@@ -61,13 +61,13 @@ class APIDataSet(AbstractDataSet[None, requests.Response]):
         self,
         url: str,
         method: str = "GET",
-        data: Any = None,
-        params: Dict[str, Any] = None,
-        headers: Dict[str, Any] = None,
-        auth: Union[Iterable[str], AuthBase] = None,
-        json: Union[List, Dict[str, Any]] = None,
+        data: Optional[Any] = None,
+        params: Optional[Dict[str, Any]] = None,
+        headers: Optional[Dict[str, Any]] = None,
+        auth: Optional[Union[Iterable[str], AuthBase]] = None,
+        json: Optional[Union[List, Dict[str, Any]]] = None,
         timeout: int = 60,
-        credentials: Union[Iterable[str], AuthBase] = None,
+        credentials: Optional[Union[Iterable[str], AuthBase]] = None,
     ) -> None:
         """Creates a new instance of ``APIDataSet`` to fetch data from an API endpoint.
 

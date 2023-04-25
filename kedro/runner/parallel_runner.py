@@ -11,7 +11,7 @@ from itertools import chain
 from multiprocessing.managers import BaseProxy, SyncManager  # type: ignore
 from multiprocessing.reduction import ForkingPickler
 from pickle import PicklingError
-from typing import Any, Dict, Iterable, Set
+from typing import Any, Dict, Iterable, Optional, Set
 
 from pluggy import PluginManager
 
@@ -90,9 +90,9 @@ def _run_node_synchronization(  # pylint: disable=too-many-arguments
     node: Node,
     catalog: DataCatalog,
     is_async: bool = False,
-    session_id: str = None,
-    package_name: str = None,
-    logging_config: Dict[str, Any] = None,
+    session_id: Optional[str] = None,
+    package_name: Optional[str] = None,
+    logging_config: Optional[Dict[str, Any]] = None,
 ) -> Node:
     """Run a single `Node` with inputs from and outputs to the `catalog`.
 
@@ -130,7 +130,7 @@ class ParallelRunner(AbstractRunner):
     single process only using the `_SINGLE_PROCESS` dataset attribute.
     """
 
-    def __init__(self, max_workers: int = None, is_async: bool = False):
+    def __init__(self, max_workers: Optional[int] = None, is_async: bool = False):
         """
         Instantiates the runner by creating a Manager.
 
@@ -263,7 +263,7 @@ class ParallelRunner(AbstractRunner):
         pipeline: Pipeline,
         catalog: DataCatalog,
         hook_manager: PluginManager,
-        session_id: str = None,
+        session_id: Optional[str] = None,
     ) -> None:
         """The abstract interface for running pipelines.
 

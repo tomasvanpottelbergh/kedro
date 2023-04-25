@@ -164,8 +164,8 @@ class SQLTableDataSet(AbstractDataSet[pd.DataFrame, pd.DataFrame]):
         self,
         table_name: str,
         credentials: Dict[str, Any],
-        load_args: Dict[str, Any] = None,
-        save_args: Dict[str, Any] = None,
+        load_args: Optional[Dict[str, Any]] = None,
+        save_args: Optional[Dict[str, Any]] = None,
     ) -> None:
         """Creates a new ``SQLTableDataSet``.
 
@@ -336,11 +336,11 @@ class SQLQueryDataSet(AbstractDataSet[None, pd.DataFrame]):
 
     def __init__(  # pylint: disable=too-many-arguments
         self,
-        sql: str = None,
-        credentials: Dict[str, Any] = None,
-        load_args: Dict[str, Any] = None,
-        fs_args: Dict[str, Any] = None,
-        filepath: str = None,
+        sql: Optional[str] = None,
+        credentials: Optional[Dict[str, Any]] = None,
+        load_args: Optional[Dict[str, Any]] = None,
+        fs_args: Optional[Dict[str, Any]] = None,
+        filepath: Optional[str] = None,
         execution_options: Optional[Dict[str, Any]] = None,
     ) -> None:
         """Creates a new ``SQLQueryDataSet``.

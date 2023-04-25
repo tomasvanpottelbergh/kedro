@@ -2,7 +2,7 @@
 dataframe"""
 
 from copy import deepcopy
-from typing import Any, Dict
+from typing import Any, Dict, Optional
 
 import dask.dataframe as dd
 import fsspec
@@ -95,10 +95,10 @@ class ParquetDataSet(AbstractDataSet[dd.DataFrame, dd.DataFrame]):
     def __init__(
         self,
         filepath: str,
-        load_args: Dict[str, Any] = None,
-        save_args: Dict[str, Any] = None,
-        credentials: Dict[str, Any] = None,
-        fs_args: Dict[str, Any] = None,
+        load_args: Optional[Dict[str, Any]] = None,
+        save_args: Optional[Dict[str, Any]] = None,
+        credentials: Optional[Dict[str, Any]] = None,
+        fs_args: Optional[Dict[str, Any]] = None,
     ) -> None:
         """Creates a new instance of ``ParquetDataSet`` pointing to concrete
         parquet files.

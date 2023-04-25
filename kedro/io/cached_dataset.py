@@ -3,7 +3,7 @@ This module contains ``CachedDataSet``, a dataset wrapper which caches in memory
 so that the user avoids io operations with slow storage media
 """
 import logging
-from typing import Any, Dict, Union
+from typing import Any, Dict, Optional, Union
 
 from kedro.io.core import VERSIONED_FLAG_KEY, AbstractDataSet, Version
 from kedro.io.memory_dataset import MemoryDataSet
@@ -35,8 +35,8 @@ class CachedDataSet(AbstractDataSet):
     def __init__(
         self,
         dataset: Union[AbstractDataSet, Dict],
-        version: Version = None,
-        copy_mode: str = None,
+        version: Optional[Version] = None,
+        copy_mode: Optional[str] = None,
     ):
         """Creates a new instance of ``CachedDataSet`` pointing to the
         provided Python object.

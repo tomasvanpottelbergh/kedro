@@ -4,7 +4,7 @@ type of read/write target.
 """
 from copy import deepcopy
 from pathlib import PurePosixPath
-from typing import Any, Dict
+from typing import Any, Dict, Optional
 
 import fsspec
 import pandas as pd
@@ -95,11 +95,11 @@ class GenericDataSet(AbstractVersionedDataSet[pd.DataFrame, pd.DataFrame]):
         self,
         filepath: str,
         file_format: str,
-        load_args: Dict[str, Any] = None,
-        save_args: Dict[str, Any] = None,
-        version: Version = None,
-        credentials: Dict[str, Any] = None,
-        fs_args: Dict[str, Any] = None,
+        load_args: Optional[Dict[str, Any]] = None,
+        save_args: Optional[Dict[str, Any]] = None,
+        version: Optional[Version] = None,
+        credentials: Optional[Dict[str, Any]] = None,
+        fs_args: Optional[Dict[str, Any]] = None,
     ):
         """Creates a new instance of ``GenericDataSet`` pointing to a concrete data file
         on a specific filesystem. The appropriate pandas load/save methods are

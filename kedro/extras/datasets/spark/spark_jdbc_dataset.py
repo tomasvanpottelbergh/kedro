@@ -1,7 +1,7 @@
 """SparkJDBCDataSet to load and save a PySpark DataFrame via JDBC."""
 
 from copy import deepcopy
-from typing import Any, Dict
+from typing import Any, Dict, Optional
 
 from pyspark.sql import DataFrame, SparkSession
 
@@ -76,9 +76,9 @@ class SparkJDBCDataSet(AbstractDataSet[DataFrame, DataFrame]):
         self,
         url: str,
         table: str,
-        credentials: Dict[str, Any] = None,
-        load_args: Dict[str, Any] = None,
-        save_args: Dict[str, Any] = None,
+        credentials: Optional[Dict[str, Any]] = None,
+        load_args: Optional[Dict[str, Any]] = None,
+        save_args: Optional[Dict[str, Any]] = None,
     ) -> None:
         """Creates a new ``SparkJDBCDataSet``.
 

@@ -102,8 +102,8 @@ class KedroSession:
     def __init__(
         self,
         session_id: str,
-        package_name: str = None,
-        project_path: Union[Path, str] = None,
+        package_name: Optional[str] = None,
+        project_path: Optional[Union[Path, str]] = None,
         save_on_close: bool = False,
         conf_source: Optional[str] = None,
     ):
@@ -126,11 +126,11 @@ class KedroSession:
     @classmethod
     def create(  # pylint: disable=too-many-arguments
         cls,
-        package_name: str = None,
-        project_path: Union[Path, str] = None,
+        package_name: Optional[str] = None,
+        project_path: Optional[Union[Path, str]] = None,
         save_on_close: bool = True,
-        env: str = None,
-        extra_params: Dict[str, Any] = None,
+        env: Optional[str] = None,
+        extra_params: Optional[Dict[str, Any]] = None,
         conf_source: Optional[str] = None,
     ) -> "KedroSession":
         """Create a new instance of ``KedroSession`` with the session data.
@@ -309,16 +309,16 @@ class KedroSession:
 
     def run(  # pylint: disable=too-many-arguments,too-many-locals
         self,
-        pipeline_name: str = None,
-        tags: Iterable[str] = None,
-        runner: AbstractRunner = None,
-        node_names: Iterable[str] = None,
-        from_nodes: Iterable[str] = None,
-        to_nodes: Iterable[str] = None,
-        from_inputs: Iterable[str] = None,
-        to_outputs: Iterable[str] = None,
-        load_versions: Dict[str, str] = None,
-        namespace: str = None,
+        pipeline_name: Optional[str] = None,
+        tags: Optional[Iterable[str]] = None,
+        runner: Optional[AbstractRunner] = None,
+        node_names: Optional[Iterable[str]] = None,
+        from_nodes: Optional[Iterable[str]] = None,
+        to_nodes: Optional[Iterable[str]] = None,
+        from_inputs: Optional[Iterable[str]] = None,
+        to_outputs: Optional[Iterable[str]] = None,
+        load_versions: Optional[Dict[str, str]] = None,
+        namespace: Optional[str] = None,
     ) -> Dict[str, Any]:
         """Runs the pipeline with a specified runner.
 

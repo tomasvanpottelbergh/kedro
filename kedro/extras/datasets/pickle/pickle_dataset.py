@@ -6,7 +6,7 @@ supports all allowed options for loading and saving pickle files.
 import importlib
 from copy import deepcopy
 from pathlib import PurePosixPath
-from typing import Any, Dict
+from typing import Any, Dict, Optional
 
 import fsspec
 
@@ -81,11 +81,11 @@ class PickleDataSet(AbstractVersionedDataSet[Any, Any]):
         self,
         filepath: str,
         backend: str = "pickle",
-        load_args: Dict[str, Any] = None,
-        save_args: Dict[str, Any] = None,
-        version: Version = None,
-        credentials: Dict[str, Any] = None,
-        fs_args: Dict[str, Any] = None,
+        load_args: Optional[Dict[str, Any]] = None,
+        save_args: Optional[Dict[str, Any]] = None,
+        version: Optional[Version] = None,
+        credentials: Optional[Dict[str, Any]] = None,
+        fs_args: Optional[Dict[str, Any]] = None,
     ) -> None:
         """Creates a new instance of ``PickleDataSet`` pointing to a concrete Pickle
         file on a specific filesystem. ``PickleDataSet`` supports custom backends to

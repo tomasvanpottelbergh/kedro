@@ -3,7 +3,7 @@ underlying dataset definition. It also uses `fsspec` for filesystem level operat
 """
 import operator
 from copy import deepcopy
-from typing import Any, Callable, Dict, List, Type, Union
+from typing import Any, Callable, Dict, List, Optional, Type, Union
 from urllib.parse import urlparse
 from warnings import warn
 
@@ -135,9 +135,9 @@ class PartitionedDataSet(AbstractDataSet):
         dataset: Union[str, Type[AbstractDataSet], Dict[str, Any]],
         filepath_arg: str = "filepath",
         filename_suffix: str = "",
-        credentials: Dict[str, Any] = None,
-        load_args: Dict[str, Any] = None,
-        fs_args: Dict[str, Any] = None,
+        credentials: Optional[Dict[str, Any]] = None,
+        load_args: Optional[Dict[str, Any]] = None,
+        fs_args: Optional[Dict[str, Any]] = None,
         overwrite: bool = False,
     ):
         """Creates a new instance of ``PartitionedDataSet``.
@@ -375,12 +375,12 @@ class IncrementalDataSet(PartitionedDataSet):
         self,
         path: str,
         dataset: Union[str, Type[AbstractDataSet], Dict[str, Any]],
-        checkpoint: Union[str, Dict[str, Any]] = None,
+        checkpoint: Optional[Union[str, Dict[str, Any]]] = None,
         filepath_arg: str = "filepath",
         filename_suffix: str = "",
-        credentials: Dict[str, Any] = None,
-        load_args: Dict[str, Any] = None,
-        fs_args: Dict[str, Any] = None,
+        credentials: Optional[Dict[str, Any]] = None,
+        load_args: Optional[Dict[str, Any]] = None,
+        fs_args: Optional[Dict[str, Any]] = None,
     ):
 
         """Creates a new instance of ``IncrementalDataSet``.

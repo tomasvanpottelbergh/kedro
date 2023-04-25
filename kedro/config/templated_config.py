@@ -90,9 +90,9 @@ class TemplatedConfigLoader(AbstractConfigLoader):
     def __init__(
         self,
         conf_source: str,
-        env: str = None,
-        runtime_params: Dict[str, Any] = None,
-        config_patterns: Dict[str, List[str]] = None,
+        env: Optional[str] = None,
+        runtime_params: Optional[Dict[str, Any]] = None,
+        config_patterns: Optional[Dict[str, List[str]]] = None,
         *,
         base_env: str = "base",
         default_run_env: str = "local",

@@ -4,7 +4,7 @@ allowed geopandas (pandas) options for loading and saving geosjon files.
 """
 import copy
 from pathlib import PurePosixPath
-from typing import Any, Dict, Union
+from typing import Any, Dict, Optional, Union
 
 import fsspec
 import geopandas as gpd
@@ -56,11 +56,11 @@ class GeoJSONDataSet(
     def __init__(
         self,
         filepath: str,
-        load_args: Dict[str, Any] = None,
-        save_args: Dict[str, Any] = None,
-        version: Version = None,
-        credentials: Dict[str, Any] = None,
-        fs_args: Dict[str, Any] = None,
+        load_args: Optional[Dict[str, Any]] = None,
+        save_args: Optional[Dict[str, Any]] = None,
+        version: Optional[Version] = None,
+        credentials: Optional[Dict[str, Any]] = None,
+        fs_args: Optional[Dict[str, Any]] = None,
     ) -> None:
         """Creates a new instance of ``GeoJSONDataSet`` pointing to a concrete GeoJSON file
         on a specific filesystem fsspec.

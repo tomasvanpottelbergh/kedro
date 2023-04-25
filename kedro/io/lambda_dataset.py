@@ -78,8 +78,8 @@ class LambdaDataSet(AbstractDataSet):
         self,
         load: Optional[Callable[[], Any]],
         save: Optional[Callable[[Any], None]],
-        exists: Callable[[], bool] = None,
-        release: Callable[[], None] = None,
+        exists: Optional[Callable[[], bool]] = None,
+        release: Optional[Callable[[], None]] = None,
     ):
         """Creates a new instance of ``LambdaDataSet`` with references to the
         required input/output data set methods.

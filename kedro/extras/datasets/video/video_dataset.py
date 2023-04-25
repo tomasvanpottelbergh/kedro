@@ -263,8 +263,8 @@ class VideoDataSet(AbstractDataSet[AbstractVideo, AbstractVideo]):
         self,
         filepath: str,
         fourcc: Optional[str] = "mp4v",
-        credentials: Dict[str, Any] = None,
-        fs_args: Dict[str, Any] = None,
+        credentials: Optional[Dict[str, Any]] = None,
+        fs_args: Optional[Dict[str, Any]] = None,
     ) -> None:
         """Creates a new instance of VideoDataSet to load / save video data for given filepath.
 

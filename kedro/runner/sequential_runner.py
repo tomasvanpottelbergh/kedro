@@ -5,6 +5,7 @@ of provided nodes.
 
 from collections import Counter
 from itertools import chain
+from typing import Optional
 
 from pluggy import PluginManager
 
@@ -47,7 +48,7 @@ class SequentialRunner(AbstractRunner):
         pipeline: Pipeline,
         catalog: DataCatalog,
         hook_manager: PluginManager,
-        session_id: str = None,
+        session_id: Optional[str] = None,
     ) -> None:
         """The method implementing sequential pipeline running.
 

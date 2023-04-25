@@ -236,10 +236,10 @@ class SparkDataSet(AbstractVersionedDataSet[DataFrame, DataFrame]):
         self,
         filepath: str,
         file_format: str = "parquet",
-        load_args: Dict[str, Any] = None,
-        save_args: Dict[str, Any] = None,
-        version: Version = None,
-        credentials: Dict[str, Any] = None,
+        load_args: Optional[Dict[str, Any]] = None,
+        save_args: Optional[Dict[str, Any]] = None,
+        version: Optional[Version] = None,
+        credentials: Optional[Dict[str, Any]] = None,
     ) -> None:
         """Creates a new instance of ``SparkDataSet``.
 

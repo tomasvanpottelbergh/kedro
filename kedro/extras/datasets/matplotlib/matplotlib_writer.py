@@ -4,7 +4,7 @@ files to an underlying filesystem (e.g. local, S3, GCS)."""
 import io
 from copy import deepcopy
 from pathlib import PurePosixPath
-from typing import Any, Dict, List, NoReturn, Union
+from typing import Any, Dict, List, NoReturn, Optional, Union
 from warnings import warn
 
 import fsspec
@@ -115,10 +115,10 @@ class MatplotlibWriter(
     def __init__(
         self,
         filepath: str,
-        fs_args: Dict[str, Any] = None,
-        credentials: Dict[str, Any] = None,
-        save_args: Dict[str, Any] = None,
-        version: Version = None,
+        fs_args: Optional[Dict[str, Any]] = None,
+        credentials: Optional[Dict[str, Any]] = None,
+        save_args: Optional[Dict[str, Any]] = None,
+        version: Optional[Version] = None,
         overwrite: bool = False,
     ) -> None:
         """Creates a new instance of ``MatplotlibWriter``.

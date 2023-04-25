@@ -1,6 +1,6 @@
 """Helper to integrate modular pipelines into a master pipeline."""
 import copy
-from typing import AbstractSet, Dict, Iterable, List, Set, Union
+from typing import AbstractSet, Dict, Iterable, List, Optional, Set, Union
 
 from kedro.pipeline.node import Node
 from kedro.pipeline.pipeline import (
@@ -75,7 +75,7 @@ def _validate_datasets_exist(
 
 
 def _get_dataset_names_mapping(
-    names: Union[str, Set[str], Dict[str, str]] = None
+    names: Optional[Union[str, Set[str], Dict[str, str]]] = None
 ) -> Dict[str, str]:
     """Take a name or a collection of dataset names
     and turn it into a mapping from the old dataset names to the provided ones if necessary.
@@ -112,7 +112,7 @@ def _normalize_param_name(name: str) -> str:
 
 
 def _get_param_names_mapping(
-    names: Union[str, Set[str], Dict[str, str]] = None
+    names: Optional[Union[str, Set[str], Dict[str, str]]] = None
 ) -> Dict[str, str]:
     """Take a parameter or a collection of parameter names
     and turn it into a mapping from existing parameter names to new ones if necessary.
@@ -151,11 +151,11 @@ def _get_param_names_mapping(
 def pipeline(
     pipe: Union[Iterable[Union[Node, Pipeline]], Pipeline],
     *,
-    inputs: Union[str, Set[str], Dict[str, str]] = None,
-    outputs: Union[str, Set[str], Dict[str, str]] = None,
-    parameters: Union[str, Set[str], Dict[str, str]] = None,
-    tags: Union[str, Iterable[str]] = None,
-    namespace: str = None,
+    inputs: Optional[Union[str, Set[str], Dict[str, str]]] = None,
+    outputs: Optional[Union[str, Set[str], Dict[str, str]]] = None,
+    parameters: Optional[Union[str, Set[str], Dict[str, str]]] = None,
+    tags: Optional[Union[str, Iterable[str]]] = None,
+    namespace: Optional[str] = None,
 ) -> Pipeline:
     r"""Create a ``Pipeline`` from a collection of nodes and/or ``Pipeline``\s.
 

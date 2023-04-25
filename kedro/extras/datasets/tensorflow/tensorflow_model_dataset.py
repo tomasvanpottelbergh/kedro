@@ -4,7 +4,7 @@ TensorFlow models.
 import copy
 import tempfile
 from pathlib import PurePath, PurePosixPath
-from typing import Any, Dict
+from typing import Any, Dict, Optional
 
 import fsspec
 import tensorflow as tf
@@ -72,11 +72,11 @@ class TensorFlowModelDataset(AbstractVersionedDataSet[tf.keras.Model, tf.keras.M
     def __init__(
         self,
         filepath: str,
-        load_args: Dict[str, Any] = None,
-        save_args: Dict[str, Any] = None,
-        version: Version = None,
-        credentials: Dict[str, Any] = None,
-        fs_args: Dict[str, Any] = None,
+        load_args: Optional[Dict[str, Any]] = None,
+        save_args: Optional[Dict[str, Any]] = None,
+        version: Optional[Version] = None,
+        credentials: Optional[Dict[str, Any]] = None,
+        fs_args: Optional[Dict[str, Any]] = None,
     ) -> None:
         """Creates a new instance of ``TensorFlowModelDataset``.
 

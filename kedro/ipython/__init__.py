@@ -60,7 +60,7 @@ def load_ipython_extension(ipython):
     default=None,
     help=PARAMS_ARG_HELP,
 )
-def magic_reload_kedro(line: str, local_ns: Dict[str, Any] = None):
+def magic_reload_kedro(line: str, local_ns: Optional[Dict[str, Any]] = None):
     """
     The `%reload_kedro` IPython line magic.
     See https://kedro.readthedocs.io/en/stable/notebooks_and_ipython/kedro_and_notebooks.html#reload-kedro-line-magic # pylint: disable=line-too-long
@@ -71,9 +71,9 @@ def magic_reload_kedro(line: str, local_ns: Dict[str, Any] = None):
 
 
 def reload_kedro(
-    path: str = None,
-    env: str = None,
-    extra_params: Dict[str, Any] = None,
+    path: Optional[str] = None,
+    env: Optional[str] = None,
+    extra_params: Optional[Dict[str, Any]] = None,
     local_namespace: Optional[Dict[str, Any]] = None,
 ) -> None:  # pragma: no cover
     """Function that underlies the %reload_kedro Line magic. This should not be imported

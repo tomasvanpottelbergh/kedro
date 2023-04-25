@@ -4,7 +4,7 @@ to read and write from/to BigQuery table.
 
 import copy
 from pathlib import PurePosixPath
-from typing import Any, Dict, NoReturn, Union
+from typing import Any, Dict, NoReturn, Optional, Union
 
 import fsspec
 import pandas as pd
@@ -75,10 +75,10 @@ class GBQTableDataSet(AbstractDataSet[None, pd.DataFrame]):
         self,
         dataset: str,
         table_name: str,
-        project: str = None,
-        credentials: Union[Dict[str, Any], Credentials] = None,
-        load_args: Dict[str, Any] = None,
-        save_args: Dict[str, Any] = None,
+        project: Optional[str] = None,
+        credentials: Optional[Union[Dict[str, Any], Credentials]] = None,
+        load_args: Optional[Dict[str, Any]] = None,
+        save_args: Optional[Dict[str, Any]] = None,
     ) -> None:
         """Creates a new instance of ``GBQTableDataSet``.
 
@@ -213,12 +213,12 @@ class GBQQueryDataSet(AbstractDataSet[None, pd.DataFrame]):
     # pylint: disable=too-many-arguments
     def __init__(
         self,
-        sql: str = None,
-        project: str = None,
-        credentials: Union[Dict[str, Any], Credentials] = None,
-        load_args: Dict[str, Any] = None,
-        fs_args: Dict[str, Any] = None,
-        filepath: str = None,
+        sql: Optional[str] = None,
+        project: Optional[str] = None,
+        credentials: Optional[Union[Dict[str, Any], Credentials]] = None,
+        load_args: Optional[Dict[str, Any]] = None,
+        fs_args: Optional[Dict[str, Any]] = None,
+        filepath: Optional[str] = None,
     ) -> None:
         """Creates a new instance of ``GBQQueryDataSet``.
 

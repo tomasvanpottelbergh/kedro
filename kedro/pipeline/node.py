@@ -23,10 +23,10 @@ class Node:
         inputs: Union[None, str, List[str], Dict[str, str]],
         outputs: Union[None, str, List[str], Dict[str, str]],
         *,
-        name: str = None,
-        tags: Union[str, Iterable[str]] = None,
-        confirms: Union[str, List[str]] = None,
-        namespace: str = None,
+        name: Optional[str] = None,
+        tags: Optional[Union[str, Iterable[str]]] = None,
+        confirms: Optional[Union[str, List[str]]] = None,
+        namespace: Optional[str] = None,
     ):
         """Create a node in the pipeline by providing a function to be called
         along with variable names for inputs and/or outputs.
@@ -298,7 +298,7 @@ class Node:
         """
         return _to_list(self._confirms)
 
-    def run(self, inputs: Dict[str, Any] = None) -> Dict[str, Any]:
+    def run(self, inputs: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
         """Run this node using the provided inputs and return its results
         in a dictionary.
 
@@ -521,10 +521,10 @@ def node(
     inputs: Union[None, str, List[str], Dict[str, str]],
     outputs: Union[None, str, List[str], Dict[str, str]],
     *,
-    name: str = None,
-    tags: Union[str, Iterable[str]] = None,
-    confirms: Union[str, List[str]] = None,
-    namespace: str = None,
+    name: Optional[str] = None,
+    tags: Optional[Union[str, Iterable[str]]] = None,
+    confirms: Optional[Union[str, List[str]]] = None,
+    namespace: Optional[str] = None,
 ) -> Node:
     """Create a node in the pipeline by providing a function to be called
     along with variable names for inputs and/or outputs.

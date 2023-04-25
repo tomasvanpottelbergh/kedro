@@ -4,7 +4,7 @@ filesystem (e.g.: local, S3, GCS). It uses native json to handle the JSON file.
 import json
 from copy import deepcopy
 from pathlib import PurePosixPath
-from typing import Any, Dict
+from typing import Any, Dict, Optional
 
 import fsspec
 
@@ -60,10 +60,10 @@ class JSONDataSet(AbstractVersionedDataSet[Any, Any]):
     def __init__(
         self,
         filepath: str,
-        save_args: Dict[str, Any] = None,
-        version: Version = None,
-        credentials: Dict[str, Any] = None,
-        fs_args: Dict[str, Any] = None,
+        save_args: Optional[Dict[str, Any]] = None,
+        version: Optional[Version] = None,
+        credentials: Optional[Dict[str, Any]] = None,
+        fs_args: Optional[Dict[str, Any]] = None,
     ) -> None:
         """Creates a new instance of ``JSONDataSet`` pointing to a concrete JSON file
         on a specific filesystem.

@@ -5,7 +5,7 @@ options for instantiating the redis app ``from_url`` and setting a value."""
 import importlib
 import os
 from copy import deepcopy
-from typing import Any, Dict
+from typing import Any, Dict, Optional
 
 import redis
 
@@ -69,10 +69,10 @@ class PickleDataSet(AbstractDataSet[Any, Any]):
         self,
         key: str,
         backend: str = "pickle",
-        load_args: Dict[str, Any] = None,
-        save_args: Dict[str, Any] = None,
-        credentials: Dict[str, Any] = None,
-        redis_args: Dict[str, Any] = None,
+        load_args: Optional[Dict[str, Any]] = None,
+        save_args: Optional[Dict[str, Any]] = None,
+        credentials: Optional[Dict[str, Any]] = None,
+        redis_args: Optional[Dict[str, Any]] = None,
     ) -> None:
         """Creates a new instance of ``PickleDataSet``. This loads/saves data from/to
         a Redis database while deserialising/serialising. Supports custom backends to

@@ -136,9 +136,9 @@ class DataCatalog:
 
     def __init__(
         self,
-        data_sets: Dict[str, AbstractDataSet] = None,
-        feed_dict: Dict[str, Any] = None,
-        layers: Dict[str, Set[str]] = None,
+        data_sets: Optional[Dict[str, AbstractDataSet]] = None,
+        feed_dict: Optional[Dict[str, Any]] = None,
+        layers: Optional[Dict[str, Set[str]]] = None,
     ) -> None:
         """``DataCatalog`` stores instances of ``AbstractDataSet``
         implementations to provide ``load`` and ``save`` capabilities from
@@ -181,9 +181,9 @@ class DataCatalog:
     def from_config(
         cls: Type,
         catalog: Optional[Dict[str, Dict[str, Any]]],
-        credentials: Dict[str, Dict[str, Any]] = None,
-        load_versions: Dict[str, str] = None,
-        save_version: str = None,
+        credentials: Optional[Dict[str, Dict[str, Any]]] = None,
+        load_versions: Optional[Dict[str, str]] = None,
+        save_version: Optional[str] = None,
     ) -> "DataCatalog":
         """Create a ``DataCatalog`` instance from configuration. This is a
         factory method used to provide developers with a way to instantiate
@@ -282,7 +282,10 @@ class DataCatalog:
         return cls(data_sets=data_sets, layers=dataset_layers)
 
     def _get_dataset(
-        self, data_set_name: str, version: Version = None, suggest: bool = True
+        self,
+        data_set_name: str,
+        version: Optional[Version] = None,
+        suggest: bool = True,
     ) -> AbstractDataSet:
         if data_set_name not in self._data_sets:
             error_msg = f"DataSet '{data_set_name}' not found in the catalog"
@@ -309,7 +312,7 @@ class DataCatalog:
 
         return data_set
 
-    def load(self, name: str, version: str = None) -> Any:
+    def load(self, name: str, version: Optional[str] = None) -> Any:
         """Loads a registered data set.
 
         Args:

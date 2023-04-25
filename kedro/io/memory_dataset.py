@@ -2,7 +2,7 @@
 """
 
 import copy
-from typing import Any, Dict
+from typing import Any, Dict, Optional
 
 from kedro.io.core import AbstractDataSet, DataSetError
 
@@ -33,7 +33,7 @@ class MemoryDataSet(AbstractDataSet):
 
     """
 
-    def __init__(self, data: Any = _EMPTY, copy_mode: str = None):
+    def __init__(self, data: Any = _EMPTY, copy_mode: Optional[str] = None):
         """Creates a new instance of ``MemoryDataSet`` pointing to the
         provided Python object.
 

@@ -3,7 +3,7 @@ file.
 """
 from copy import deepcopy
 from pathlib import PurePosixPath
-from typing import Any, Dict, List
+from typing import Any, Dict, List, Optional
 
 import fsspec
 from Bio import SeqIO
@@ -48,10 +48,10 @@ class BioSequenceDataSet(AbstractDataSet[List, List]):
     def __init__(
         self,
         filepath: str,
-        load_args: Dict[str, Any] = None,
-        save_args: Dict[str, Any] = None,
-        credentials: Dict[str, Any] = None,
-        fs_args: Dict[str, Any] = None,
+        load_args: Optional[Dict[str, Any]] = None,
+        save_args: Optional[Dict[str, Any]] = None,
+        credentials: Optional[Dict[str, Any]] = None,
+        fs_args: Optional[Dict[str, Any]] = None,
     ) -> None:
         """
         Creates a new instance of ``BioSequenceDataSet`` pointing

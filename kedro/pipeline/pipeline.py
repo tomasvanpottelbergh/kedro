@@ -7,7 +7,7 @@ import copy
 import json
 from collections import Counter, defaultdict
 from itertools import chain
-from typing import Dict, Iterable, List, Set, Tuple, Union
+from typing import Dict, Iterable, List, Optional, Set, Tuple, Union
 
 from toposort import CircularDependencyError as ToposortCircleError
 from toposort import toposort
@@ -79,7 +79,7 @@ class Pipeline:  # pylint: disable=too-many-public-methods
         self,
         nodes: Iterable[Union[Node, "Pipeline"]],
         *,
-        tags: Union[str, Iterable[str]] = None,
+        tags: Optional[Union[str, Iterable[str]]] = None,
     ):
         """Initialise ``Pipeline`` with a list of ``Node`` instances.
 
@@ -680,13 +680,13 @@ class Pipeline:  # pylint: disable=too-many-public-methods
     # pylint: disable=too-many-arguments
     def filter(
         self,
-        tags: Iterable[str] = None,
-        from_nodes: Iterable[str] = None,
-        to_nodes: Iterable[str] = None,
-        node_names: Iterable[str] = None,
-        from_inputs: Iterable[str] = None,
-        to_outputs: Iterable[str] = None,
-        node_namespace: str = None,
+        tags: Optional[Iterable[str]] = None,
+        from_nodes: Optional[Iterable[str]] = None,
+        to_nodes: Optional[Iterable[str]] = None,
+        node_names: Optional[Iterable[str]] = None,
+        from_inputs: Optional[Iterable[str]] = None,
+        to_outputs: Optional[Iterable[str]] = None,
+        node_namespace: Optional[str] = None,
     ) -> "Pipeline":
         """Creates a new ``Pipeline`` object with the nodes that meet all of the
         specified filtering conditions.
@@ -804,7 +804,7 @@ def _validate_duplicate_nodes(nodes_or_pipes: Iterable[Union[Node, Pipeline]]):
     seen_nodes: Set[str] = set()
     duplicates: Dict[Union[Pipeline, None], Set[str]] = defaultdict(set)
 
-    def _check_node(node_: Node, pipeline_: Pipeline = None):
+    def _check_node(node_: Node, pipeline_: Optional[Pipeline] = None):
         name = node_.name
         if name in seen_nodes:
             duplicates[pipeline_].add(name)

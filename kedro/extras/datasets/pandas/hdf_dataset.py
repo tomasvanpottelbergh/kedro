@@ -4,7 +4,7 @@ filesystem (e.g.: local, S3, GCS). It uses pandas.HDFStore to handle the hdf fil
 from copy import deepcopy
 from pathlib import PurePosixPath
 from threading import Lock
-from typing import Any, Dict
+from typing import Any, Dict, Optional
 
 import fsspec
 import pandas as pd
@@ -69,11 +69,11 @@ class HDFDataSet(AbstractVersionedDataSet[pd.DataFrame, pd.DataFrame]):
         self,
         filepath: str,
         key: str,
-        load_args: Dict[str, Any] = None,
-        save_args: Dict[str, Any] = None,
-        version: Version = None,
-        credentials: Dict[str, Any] = None,
-        fs_args: Dict[str, Any] = None,
+        load_args: Optional[Dict[str, Any]] = None,
+        save_args: Optional[Dict[str, Any]] = None,
+        version: Optional[Version] = None,
+        credentials: Optional[Dict[str, Any]] = None,
+        fs_args: Optional[Dict[str, Any]] = None,
     ) -> None:
         """Creates a new instance of ``HDFDataSet`` pointing to a concrete hdf file
         on a specific filesystem.

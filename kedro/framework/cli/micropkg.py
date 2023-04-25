@@ -134,10 +134,10 @@ def pull_package(  # pylint:disable=unused-argument, too-many-arguments
 def _pull_package(
     package_path: str,
     metadata: ProjectMetadata,
-    env: str = None,
-    alias: str = None,
-    destination: str = None,
-    fs_args: str = None,
+    env: Optional[str] = None,
+    alias: Optional[str] = None,
+    destination: Optional[str] = None,
+    fs_args: Optional[str] = None,
 ):
     with tempfile.TemporaryDirectory() as temp_dir:
         temp_dir_path = Path(temp_dir).resolve()
@@ -383,7 +383,7 @@ def _refactor_code_for_unpacking(
     """
 
     def _move_package_with_conflicting_name(
-        target: Path, original_name: str, desired_name: str = None
+        target: Path, original_name: str, desired_name: Optional[str] = None
     ) -> Path:
         _rename_package(project, original_name, "tmp_name")
         full_path = _create_nested_package(project, target)
@@ -434,9 +434,9 @@ def _install_files(  # pylint: disable=too-many-arguments, too-many-locals
     project_metadata: ProjectMetadata,
     package_name: str,
     source_path: Path,
-    env: str = None,
-    alias: str = None,
-    destination: str = None,
+    env: Optional[str] = None,
+    alias: Optional[str] = None,
+    destination: Optional[str] = None,
 ):
     env = env or "base"
 
@@ -509,9 +509,9 @@ def _get_default_version(metadata: ProjectMetadata, micropkg_module_path: str) -
 def _package_micropkg(
     micropkg_module_path: str,
     metadata: ProjectMetadata,
-    alias: str = None,
-    destination: str = None,
-    env: str = None,
+    alias: Optional[str] = None,
+    destination: Optional[str] = None,
+    env: Optional[str] = None,
 ) -> Path:
     micropkg_name = micropkg_module_path.split(".")[-1]
     package_dir = metadata.source_dir / metadata.package_name
@@ -717,7 +717,7 @@ def _generate_sdist_file(
     source_paths: Tuple[_SourcePathType, ...],
     version: str,
     metadata: ProjectMetadata,
-    alias: str = None,
+    alias: Optional[str] = None,
 ) -> None:
     package_name = alias or micropkg_name
     package_source, tests_source, conf_source = source_paths

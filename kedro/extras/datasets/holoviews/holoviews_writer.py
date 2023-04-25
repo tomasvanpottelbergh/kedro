@@ -4,7 +4,7 @@ filesystem (e.g. local, S3, GCS)."""
 import io
 from copy import deepcopy
 from pathlib import PurePosixPath
-from typing import Any, Dict, NoReturn, TypeVar
+from typing import Any, Dict, NoReturn, Optional, TypeVar
 
 import fsspec
 import holoviews as hv
@@ -48,10 +48,10 @@ class HoloviewsWriter(AbstractVersionedDataSet[HoloViews, NoReturn]):
     def __init__(
         self,
         filepath: str,
-        fs_args: Dict[str, Any] = None,
-        credentials: Dict[str, Any] = None,
-        save_args: Dict[str, Any] = None,
-        version: Version = None,
+        fs_args: Optional[Dict[str, Any]] = None,
+        credentials: Optional[Dict[str, Any]] = None,
+        save_args: Optional[Dict[str, Any]] = None,
+        version: Optional[Version] = None,
     ) -> None:
         """Creates a new instance of ``HoloviewsWriter``.
 
