@@ -152,7 +152,7 @@ class AbstractDataSet(abc.ABC, Generic[_DI, _DO]):
             ) from exc
 
         try:
-            data_set = class_obj(**config)  # type: ignore
+            data_set = class_obj(**config)
         except TypeError as err:
             raise DataSetError(
                 f"\n{err}.\nDataSet '{name}' must only contain arguments valid for the "

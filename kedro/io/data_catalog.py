@@ -592,6 +592,6 @@ class DataCatalog:
         data_set = self._get_dataset(name)
 
         if hasattr(data_set, "confirm"):
-            data_set.confirm()  # type: ignore
+            data_set.confirm()
         else:
             raise DataSetError(f"DataSet '{name}' does not have 'confirm' method")

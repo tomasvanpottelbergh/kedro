@@ -203,7 +203,7 @@ class KedroContext:
         self._extra_params = deepcopy(extra_params)
         self._hook_manager = hook_manager
 
-    @property  # type: ignore
+    @property
     def env(self) -> Optional[str]:
         """Property for the current Kedro environment.
 

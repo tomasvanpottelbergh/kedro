@@ -103,7 +103,7 @@ def _suggest_cli_command(
         suggestion = "\n\nDid you mean this?"
     else:
         suggestion = "\n\nDid you mean one of these?\n"
-    suggestion += textwrap.indent("\n".join(matches), " " * 4)  # type: ignore
+    suggestion += textwrap.indent("\n".join(matches), " " * 4)
     return suggestion
 
 

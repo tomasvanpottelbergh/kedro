@@ -50,7 +50,7 @@ class ThreadRunner(AbstractRunner):
 
         self._max_workers = max_workers
 
-    def create_default_data_set(self, ds_name: str) -> MemoryDataSet:  # type: ignore
+    def create_default_data_set(self, ds_name: str) -> MemoryDataSet:
         """Factory method for creating the default dataset for the runner.
 
         Args:

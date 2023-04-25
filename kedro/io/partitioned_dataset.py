@@ -283,7 +283,7 @@ class PartitionedDataSet(AbstractDataSet):
             kwargs = deepcopy(self._dataset_config)
             # join the protocol back since PySpark may rely on it
             kwargs[self._filepath_arg] = self._join_protocol(partition)
-            dataset = self._dataset_type(**kwargs)  # type: ignore
+            dataset = self._dataset_type(**kwargs)
             partition_id = self._path_to_partition(partition)
             partitions[partition_id] = dataset.load
 
@@ -301,7 +301,7 @@ class PartitionedDataSet(AbstractDataSet):
             partition = self._partition_to_path(partition_id)
             # join the protocol back since tools like PySpark may rely on it
             kwargs[self._filepath_arg] = self._join_protocol(partition)
-            dataset = self._dataset_type(**kwargs)  # type: ignore
+            dataset = self._dataset_type(**kwargs)
             if callable(partition_data):
                 partition_data = partition_data()
             dataset.save(partition_data)
@@ -511,7 +511,7 @@ class IncrementalDataSet(PartitionedDataSet):
     @property
     def _checkpoint(self) -> AbstractDataSet:
         type_, kwargs = parse_dataset_definition(self._checkpoint_config)
-        return type_(**kwargs)  # type: ignore
+        return type_(**kwargs)
 
     def _read_checkpoint(self) -> Union[str, None]:
         if self._force_checkpoint is not None:
@@ -529,9 +529,7 @@ class IncrementalDataSet(PartitionedDataSet):
             kwargs = deepcopy(self._dataset_config)
             # join the protocol back since PySpark may rely on it
             kwargs[self._filepath_arg] = self._join_protocol(partition)
-            partitions[partition_id] = self._dataset_type(  # type: ignore
-                **kwargs
-            ).load()
+            partitions[partition_id] = self._dataset_type(**kwargs).load()
 
         return partitions
 
