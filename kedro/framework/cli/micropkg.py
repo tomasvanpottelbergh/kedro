@@ -57,12 +57,12 @@ def _check_module_path(ctx, param, value):  # pylint: disable=unused-argument
 
 # pylint: disable=missing-function-docstring
 @click.group(name="Kedro")
-def micropkg_cli():  # pragma: no cover
+def micropkg_cli() -> None:  # pragma: no cover
     pass
 
 
 @micropkg_cli.group()
-def micropkg():
+def micropkg() -> None:
     """Commands for working with micro-packages."""
 
 

@@ -159,7 +159,7 @@ def _starter_spec_to_dict(
 
 # pylint: disable=missing-function-docstring
 @click.group(context_settings=CONTEXT_SETTINGS, name="Kedro")
-def create_cli():  # pragma: no cover
+def create_cli() -> None:  # pragma: no cover
     pass
 
 
@@ -234,7 +234,7 @@ def new(config_path, starter_alias, checkout, directory, **kwargs):
 
 
 @create_cli.group()
-def starter():
+def starter() -> None:
     """Commands for working with project starters."""
 
 

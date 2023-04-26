@@ -319,7 +319,7 @@ class PartitionedDataSet(AbstractDataSet):
             "dataset_config": clean_dataset_config,
         }
 
-    def _invalidate_caches(self):
+    def _invalidate_caches(self) -> None:
         self._partition_cache.clear()
         self._filesystem.invalidate_cache(self._normalized_path)
 

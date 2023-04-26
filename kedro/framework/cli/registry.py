@@ -9,17 +9,17 @@ from kedro.framework.startup import ProjectMetadata
 
 # pylint: disable=missing-function-docstring
 @click.group(name="Kedro")
-def registry_cli():  # pragma: no cover
+def registry_cli() -> None:  # pragma: no cover
     pass
 
 
 @registry_cli.group()
-def registry():
+def registry() -> None:
     """Commands for working with registered pipelines."""
 
 
 @registry.command("list")
-def list_registered_pipelines():
+def list_registered_pipelines() -> None:
     """List all pipelines defined in your pipeline_registry.py file."""
     click.echo(yaml.dump(sorted(pipelines)))
 

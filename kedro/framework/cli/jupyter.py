@@ -42,12 +42,12 @@ class JupyterCommandGroup(click.Group):
 
 # pylint: disable=missing-function-docstring
 @click.group(name="Kedro")
-def jupyter_cli():  # pragma: no cover
+def jupyter_cli() -> None:  # pragma: no cover
     pass
 
 
 @jupyter_cli.group(cls=JupyterCommandGroup)
-def jupyter():
+def jupyter() -> None:
     """Open Jupyter Notebook / Lab with project specific variables loaded, or
     convert notebooks into Kedro code.
     """

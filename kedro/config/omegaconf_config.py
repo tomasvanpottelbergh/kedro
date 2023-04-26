@@ -328,7 +328,7 @@ class OmegaConfigLoader(AbstractConfigLoader):
             OmegaConf.resolve(config)
 
     @staticmethod
-    def _clear_omegaconf_resolvers():
+    def _clear_omegaconf_resolvers() -> None:
         """Clear the built-in OmegaConf resolvers."""
         OmegaConf.clear_resolver("oc.env")
         OmegaConf.clear_resolver("oc.create")

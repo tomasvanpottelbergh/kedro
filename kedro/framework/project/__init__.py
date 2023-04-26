@@ -169,7 +169,7 @@ class _ProjectPipelines(MutableMapping):
         register_pipelines = getattr(module_obj, "register_pipelines")
         return register_pipelines
 
-    def _load_data(self):
+    def _load_data(self) -> None:
         """Lazily read pipelines defined in the pipelines registry module."""
 
         # If the pipelines dictionary has not been configured with a pipelines module
@@ -211,7 +211,7 @@ class _ProjectPipelines(MutableMapping):
 
 class _ProjectLogging(UserDict):
     # pylint: disable=super-init-not-called
-    def __init__(self):
+    def __init__(self) -> None:
         """Initialise project logging with default configuration. Also enable
         rich tracebacks."""
         default_logging = (Path(__file__).parent / "default_logging.yml").read_text(
@@ -271,7 +271,7 @@ def configure_logging(logging_config: Dict[str, Any]) -> None:
     LOGGING.configure(logging_config)
 
 
-def validate_settings():
+def validate_settings() -> None:
     """Eagerly validate that the settings module is importable. This is desirable to
     surface any syntax or import errors early. In particular, without eagerly importing
     the settings module, dynaconf would silence any import error (e.g. missing

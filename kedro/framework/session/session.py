@@ -292,7 +292,7 @@ class KedroSession:
             **settings.CONFIG_LOADER_ARGS,
         )
 
-    def close(self):
+    def close(self) -> None:
         """Close the current session and save its store to disk
         if `save_on_close` attribute is True.
         """

@@ -459,7 +459,7 @@ class Node:
             return _from_dict()
         return _from_list()
 
-    def _validate_inputs(self, func, inputs):
+    def _validate_inputs(self, func: Callable, inputs: Union[None, str, List[str], Dict[str, str]]):
         # inspect does not support built-in Python functions written in C.
         # Thus we only validate func if it is not built-in.
         if not inspect.isbuiltin(func):
@@ -477,7 +477,7 @@ class Node:
                     f"but got {inputs}"
                 ) from exc
 
-    def _validate_unique_outputs(self):
+    def _validate_unique_outputs(self) -> None:
         diff = Counter(self.outputs) - Counter(set(self.outputs))
         if diff:
             raise ValueError(
@@ -485,7 +485,7 @@ class Node:
                 f" output(s) {set(diff.keys())}.\nNode outputs must be unique."
             )
 
-    def _validate_inputs_dif_than_outputs(self):
+    def _validate_inputs_dif_than_outputs(self) -> None:
         common_in_out = set(self.inputs).intersection(set(self.outputs))
         if common_in_out:
             raise ValueError(

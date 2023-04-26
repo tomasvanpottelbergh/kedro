@@ -209,7 +209,7 @@ def _lookup_config_filepaths(
     return sorted(config_files)
 
 
-def _remove_duplicates(items: Iterable[str]):
+def _remove_duplicates(items: Iterable[str]) -> List[str]:
     """Remove duplicates while preserving the order."""
     unique_items: List[str] = []
     for item in items:
