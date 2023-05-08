@@ -60,16 +60,14 @@ After this, if you'd like to update your project requirements, please update `re
 ## How to work with Kedro and notebooks
 
 > Note: Using `kedro jupyter` or `kedro ipython` to run your notebook provides these variables in scope: `context`, `catalog`, and `startup_error`.
->
-> Jupyter, JupyterLab, and IPython are already included in the project requirements by default, so once you have run `pip install -r requirements.txt` you will not need to take any extra steps before you use them.
+
+Jupyter, JupyterLab, and IPython are not included in the project requirements by default. To install them, run the following command:
+
+```
+pip install -r dev-requirements.txt
+```
 
 ### Jupyter
-To use Jupyter notebooks in your Kedro project, you need to install Jupyter:
-
-```
-pip install jupyter
-```
-
 After installing Jupyter, you can start a local notebook server:
 
 ```
@@ -77,12 +75,6 @@ kedro jupyter notebook
 ```
 
 ### JupyterLab
-To use JupyterLab, you need to install it:
-
-```
-pip install jupyterlab
-```
-
 You can also start JupyterLab:
 
 ```
