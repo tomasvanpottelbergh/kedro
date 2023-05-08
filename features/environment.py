@@ -117,7 +117,7 @@ def _setup_minimal_env(context):
 def _install_project_requirements(context):
     install_reqs = (
         Path(
-            "kedro/templates/project/{{ cookiecutter.repo_name }}/src/requirements.txt"
+            "kedro/templates/project/{{ cookiecutter.repo_name }}/dev-requirements.txt"
         )
         .read_text(encoding="utf-8")
         .splitlines()
