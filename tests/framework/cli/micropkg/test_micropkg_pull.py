@@ -54,6 +54,7 @@ class TestMicropkgPullCommand:
             "README.md",
         }
 
+    @pytest.mark.xdist_group("micropkg-serial")
     @pytest.mark.parametrize("env", [None, "local"])
     @pytest.mark.parametrize(
         "alias, destination",

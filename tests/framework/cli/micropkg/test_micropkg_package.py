@@ -39,6 +39,7 @@ class TestMicropkgPackageCommand:
         }
         assert expected_files <= sdist_contents
 
+    @pytest.mark.xdist_group("micropkg-serial")
     @pytest.mark.parametrize(
         "options,package_name,success_message",
         [
