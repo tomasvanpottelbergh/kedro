@@ -1,5 +1,5 @@
 """A collection of CLI commands for working with Kedro micro-packages."""
-
+import logging
 import re
 import shutil
 import sys
@@ -757,8 +757,8 @@ def _generate_sdist_file(
                 f"Package file {package_file} will be overwritten!", fg="yellow"
             )
 
-        print(f"destination = {destination}")
-        print(f"{destination.is_dir()} {destination.is_file()}")
+        logging.warning(f"destination = {destination}")
+        logging.warning(f"{destination.is_dir()} {destination.is_file()}")
         # python -m build --sdist --outdir <destination>
         call(
             [

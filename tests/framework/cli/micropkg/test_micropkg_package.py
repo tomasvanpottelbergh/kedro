@@ -80,6 +80,47 @@ class TestMicropkgPackageCommand:
             sdist_location=sdist_location, package_name=package_name, version="0.1"
         )
 
+    @pytest.mark.xdist_group("micropkg-serial")
+    @pytest.mark.parametrize(
+        "options,package_name,success_message",
+        [
+            ([], PIPELINE_NAME, f"'dummy_package.pipelines.{PIPELINE_NAME}' packaged!"),
+            (
+                    ["--alias", "alternative"],
+                    "alternative",
+                    f"'dummy_package.pipelines.{PIPELINE_NAME}' packaged as 'alternative'!",
+            ),
+        ],
+    )
+    def test_package_micropkg2(
+            self,
+            fake_repo_path,
+            fake_project_cli,
+            options,
+            package_name,
+            success_message,
+            fake_metadata,
+    ):
+        result = CliRunner().invoke(
+            fake_project_cli, ["pipeline", "create", PIPELINE_NAME], obj=fake_metadata
+        )
+        assert result.exit_code == 0
+        result = CliRunner().invoke(
+            fake_project_cli,
+            ["micropkg", "package", f"pipelines.{PIPELINE_NAME}"] + options,
+            obj=fake_metadata,
+        )
+
+        # assert result.exit_code == 0
+        assert success_message in result.output
+
+        sdist_location = fake_repo_path / "dist"
+        assert f"Location: {sdist_location}" in result.output
+
+        self.assert_sdist_contents_correct(
+            sdist_location=sdist_location, package_name=package_name, version="0.1"
+        )
+
     def test_micropkg_package_same_name_as_package_name(
         self, fake_metadata, fake_project_cli, fake_repo_path
     ):
