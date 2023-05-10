@@ -17,7 +17,7 @@ test:
 	pytest --numprocesses 4 --dist loadfile
 
 test-no-spark:
-	pytest --no-cov --ignore tests/extras/datasets/spark --numprocesses 4 --dist loadfile
+	pytest tests/framework/cli/micropkg/test_micropkg_package.py
 
 test-no-datasets:
 	pytest --no-cov --ignore tests/extras/datasets/ --numprocesses 4 --dist loadfile

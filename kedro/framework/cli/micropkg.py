@@ -757,6 +757,8 @@ def _generate_sdist_file(
                 f"Package file {package_file} will be overwritten!", fg="yellow"
             )
 
+        print(f"destination = {destination}")
+        print(f"{destination.is_dir()} {destination.is_file()}")
         # python -m build --sdist --outdir <destination>
         call(
             [
