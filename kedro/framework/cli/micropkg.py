@@ -757,29 +757,16 @@ def _generate_sdist_file(
                 f"Package file {package_file} will be overwritten!", fg="yellow"
             )
 
-        # logging.warning(f"destination = {destination}")
-        # logging.warning(f"{destination.is_dir()} {destination.is_file()}")
-        # # python -m build --sdist --outdir <destination>
-        # call(
-        #     [
-        #         sys.executable,
-        #         "-m",
-        #         "build",
-        #         "--sdist",
-        #         "--outdir",
-        #         str(destination),
-        #     ],
-        #     cwd=temp_dir,
-        # )
         logging.warning(f"destination = {destination}")
         logging.warning(f"{destination.is_dir()} {destination.is_file()}")
+        # python -m build --sdist --outdir <destination>
         call(
             [
                 sys.executable,
-                str(setup_file.resolve()),
-                "sdist",
-                "--formats=gztar",
-                "--dist-dir",
+                "-m",
+                "build",
+                "--sdist",
+                "--outdir",
                 str(destination),
             ],
             cwd=temp_dir,
