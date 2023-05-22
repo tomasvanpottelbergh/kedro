@@ -10,7 +10,7 @@ tasks:
       echo PIP_USER=no >> ~/.bashrc && export PIP_USER=no
     init: |
       make sign-off
-      pip install -r test_requirements.txt --user
+      pip install .[test] --user
       gp sync-done kedro
     command: |
       pre-commit install --install-hooks
